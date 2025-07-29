@@ -1,5 +1,3 @@
-import { NewsArticle } from "@/interfaces";
-
 export async function getNews() {
   try {
     const apiKey = process.env.NEWS_API_KEY;
@@ -7,18 +5,13 @@ export async function getNews() {
       throw new Error("NEWS_API_KEY is not defined");
     }
 
-    // 1. Calcular a data de 24h atrás (formato ISO 8601)
-    const dateStart = new Date();
-    dateStart.setTime(dateStart.getTime() - 24 * 60 * 60 * 1000); // 24h atrás
-    const dateStartStr = dateStart.toISOString().split(".")[0] + "Z"; // Ex: 2025-04-05T10:00:00Z
-
-    // 2. Conceito principal: Futebol
+    // 1. Conceito principal: Futebol (Association football)
     const conceptUri = "http://en.wikipedia.org/wiki/Association_football";
 
-    // 3. Categoria: Esportes (opcional, para reforçar)
-    const categoryUri = "dmoz/Sports";
+    // 2. Categoria: Esportes
+    const categoryUri = "dmoz/Sports"; // ou "http://dmoztools.net/Sports/"
 
-    // 4. Termos indesejados
+    // 3. Lista de termos indesejados (para excluir falsos positivos)
     const blacklistTerms = [
       "futebol americano",
       "flag football",
@@ -31,7 +24,8 @@ export async function getNews() {
       "video game"
     ];
 
-    // 5. Domínios confiáveis (opcional)
+    // 4. (Opcional) Limitar a domínios esportivos confiáveis
+    // Comente ou remova se quiser ampliar a cobertura
     const allowedDomains = [
       "globo.com",
       "ge.globo.com",
@@ -45,13 +39,17 @@ export async function getNews() {
       "abril.com.br"
     ];
 
-    // Monta a query com filtro de data
+    // Monta a query semântica avançada
     const query = {
       $query: {
         $and: [
+          // Filtra por conceito de futebol
           { conceptUri },
+          // Reforça que é sobre esportes
           { categoryUri },
+          // Idioma: português
           { lang: "por" },
+          // Exclui artigos com termos indesejados
           {
             $not: {
               keyword: blacklistTerms
@@ -59,17 +57,19 @@ export async function getNews() {
           }
         ]
       },
+      // (Opcional) Restringe a domínios confiáveis
       $filter: {
-        dateStart: dateStartStr, // Apenas artigos a partir das últimas 24h
+        forceMaxDataTimeWindow: "31" // últimos 31 dias (limite da versão gratuita)
         // sourceUri: allowedDomains // descomente se quiser restringir por domínio
       }
     };
 
+    // Codifica a query para a URL
     const encodedQuery = encodeURIComponent(JSON.stringify(query));
 
     const url = `https://newsapi.ai/api/v1/article/getArticles?query=${encodedQuery}&resultType=articles&articlesSortBy=date&apiKey=${apiKey}`;
 
-    console.log("Request URL:", url);
+    console.log("Request URL:", url); // útil para debug
 
     const response = await fetch(url, {
       method: "GET",
@@ -83,14 +83,18 @@ export async function getNews() {
 
     const data = await response.json();
 
-    // Filtro adicional no cliente (segurança extra contra ruído)
-    const filteredResults = (data.articles?.results || []).filter((article: NewsArticle) => {
+    // Filtra novamente no lado do cliente (opcional, para segurança extra)
+    const filteredResults = data.articles?.results?.filter(article => {
       const title = (article.title || "").toLowerCase();
       const body = (article.body || "").toLowerCase();
-      return !blacklistTerms.some(term => title.includes(term) || body.includes(term));
-    });
 
-    console.log(`Fetched ${data.articles?.results?.length || 0} articles, filtered to ${filteredResults.length} (last 24h)`);
+      // Verifica se contém algum termo bloqueado
+      return !blacklistTerms.some(term =>
+        title.includes(term) || body.includes(term)
+      );
+    }) || [];
+
+    console.log(`Fetched ${data.articles?.results?.length || 0} articles, filtered to ${filteredResults.length}`);
     return filteredResults;
   } catch (error) {
     console.error("Error fetching news:", error);
