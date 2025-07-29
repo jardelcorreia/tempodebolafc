@@ -1,3 +1,5 @@
+import { NewsArticle } from "@/interfaces";
+
 export async function getNews() {
   try {
     const apiKey = process.env.NEWS_API_KEY;
@@ -80,8 +82,6 @@ export async function getNews() {
     }
 
     const data = await response.json();
-
-import { NewsArticle } from "@/interfaces";
 
     // Filtro adicional no cliente (segurança extra contra ruído)
     const filteredResults = (data.articles?.results || []).filter((article: NewsArticle) => {
