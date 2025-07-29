@@ -5,19 +5,33 @@ export async function getNews() {
       throw new Error("NEWS_API_KEY is not defined");
     }
 
-    const response = await fetch(
-      `https://newsapi.ai/api/v1/article/getArticles?query=%7B%22%24query%22%3A%7B%22%24and%22%3A%5B%7B%22keyword%22%3A%22futebol%22%7D%2C%7B%22lang%22%3A%22por%22%7D%5D%7D%7D&resultType=articles&articlesSortBy=date&apiKey=${apiKey}`
-    );
+    // Usa o conceptUri para "futebol" (association football)
+    const query = JSON.stringify({
+      $query: {
+        $and: [
+          { conceptUri: "http://en.wikipedia.org/wiki/Association_football" },
+          { lang: "por" }
+        ]
+      }
+    });
+
+    const encodedQuery = encodeURIComponent(query);
+
+    const url = `https://newsapi.ai/api/v1/article/getArticles?query=${encodedQuery}&resultType=articles&articlesSortBy=date&apiKey=${apiKey}`;
+
+    const response = await fetch(url);
 
     if (!response.ok) {
-      throw new Error("Failed to fetch news");
+      throw new Error(`Failed to fetch news: ${response.statusText}`);
     }
 
     const data = await response.json();
     console.log("API Response:", data);
-    return data.articles.results;
+
+    // Retorna apenas os artigos relevantes
+    return data.articles?.results || [];
   } catch (error) {
-    console.error(error);
+    console.error("Error fetching news:", error);
     return [];
   }
 }
