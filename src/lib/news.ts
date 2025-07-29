@@ -68,6 +68,14 @@ export async function getNews(category: 'brasil' | 'internacional' | 'mercado' =
     // Processa e filtra os artigos
     const articles = data.articles.results
       .filter((article: any) => {
+        // Filtra notícias com mais de 36 horas
+        const articleDate = new Date(article.dateTime);
+        const now = new Date();
+        const diffInHours = Math.floor((now.getTime() - articleDate.getTime()) / (1000 * 60 * 60));
+        if (diffInHours > 36) {
+          return false;
+        }
+
         // Palavras-chave relacionadas ao futebol
         const footballKeywords = [
           'futebol', 'football', 'soccer', 'copa', 'campeonato', 'brasileirão',
