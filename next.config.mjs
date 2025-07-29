@@ -12,6 +12,7 @@ const nextConfig = {
       "record.pt",
       "maisfutebol.iol.pt",
       "abril.com.br",
+      "newsapi.ai",
     ],
   },
 };
