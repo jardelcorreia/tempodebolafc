@@ -1,11 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { Menu, X, Search, Bell, User } from 'lucide-react';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,10 +19,9 @@ export default function Header() {
   }, []);
 
   const navigationItems = [
-    { label: 'Brasil', href: '#', isActive: true },
-    { label: 'Internacional', href: '#' },
-    { label: 'Mercado', href: '#' },
-    { label: 'Ao Vivo', href: '#' },
+    { label: 'Brasil', href: '/brasil' },
+    { label: 'Internacional', href: '/internacional' },
+    { label: 'Mercado', href: '/mercado' },
   ];
 
   return (
@@ -58,13 +59,13 @@ export default function Header() {
                 key={item.label}
                 href={item.href}
                 className={`relative px-4 py-2 font-medium transition-all duration-200 rounded-lg ${
-                  item.isActive
+                  pathname === item.href
                     ? 'text-emerald-600 bg-emerald-50'
                     : 'text-gray-700 hover:text-emerald-600 hover:bg-emerald-50'
                 }`}
               >
                 {item.label}
-                {item.isActive && (
+                {pathname === item.href && (
                   <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-emerald-500 rounded-full"></div>
                 )}
               </a>
@@ -102,7 +103,7 @@ export default function Header() {
                 key={item.label}
                 href={item.href}
                 className={`block px-4 py-3 font-medium transition-all duration-200 rounded-lg ${
-                  item.isActive
+                  pathname === item.href
                     ? 'text-emerald-600 bg-emerald-50'
                     : 'text-gray-700 hover:text-emerald-600 hover:bg-emerald-50'
                 }`}

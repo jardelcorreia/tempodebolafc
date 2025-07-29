@@ -1,22 +1,49 @@
-export async function getNews() {
+export async function getNews(category: 'brasil' | 'internacional' | 'mercado' = 'brasil') {
   try {
     const apiKey = process.env.NEWS_API_KEY;
     if (!apiKey) {
       throw new Error("NEWS_API_KEY is not defined");
     }
 
-    // Usando múltiplas keywords específicas de futebol
-    const params = new URLSearchParams({
-      resultType: 'articles',
-      keyword: 'futebol',
-      keywordLoc: 'title,body', // Busca nas palavras-chave no título E corpo
-      keywordOper: 'and', // Operador AND para ser mais restritivo
-      lang: 'por',
-      sourceLocationUri: 'http://en.wikipedia.org/wiki/Brazil',
-      articlesSortBy: 'date',
-      articlesCount: '50',
-      apiKey: apiKey
-    });
+    let params;
+
+    switch (category) {
+      case 'internacional':
+        params = new URLSearchParams({
+          resultType: 'articles',
+          keyword: 'futebol internacional',
+          keywordLoc: 'title',
+          lang: 'por',
+          articlesSortBy: 'date',
+          articlesCount: '50',
+          apiKey: apiKey
+        });
+        break;
+      case 'mercado':
+        params = new URLSearchParams({
+          resultType: 'articles',
+          keyword: 'mercado da bola',
+          keywordLoc: 'title',
+          lang: 'por',
+          articlesSortBy: 'date',
+          articlesCount: '50',
+          apiKey: apiKey
+        });
+        break;
+      case 'brasil':
+      default:
+        params = new URLSearchParams({
+          resultType: 'articles',
+          keyword: 'futebol brasileiro',
+          keywordLoc: 'title',
+          lang: 'por',
+          sourceLocationUri: 'http://en.wikipedia.org/wiki/Brazil',
+          articlesSortBy: 'date',
+          articlesCount: '50',
+          apiKey: apiKey
+        });
+        break;
+    }
 
     const url = `https://newsapi.ai/api/v1/article/getArticles?${params.toString()}`;
 
