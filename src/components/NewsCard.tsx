@@ -9,9 +9,10 @@ interface NewsCardProps {
   article: NewsArticle;
   index: number;
   variant?: 'default' | 'featured' | 'compact';
+  timeAgo: string;
 }
 
-export default function NewsCard({ article, index, variant = 'default' }: NewsCardProps) {
+export default function NewsCard({ article, index, variant = 'default', timeAgo }: NewsCardProps) {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
 
@@ -31,17 +32,6 @@ export default function NewsCard({ article, index, variant = 'default' }: NewsCa
       navigator.clipboard.writeText(article.url);
       // Aqui você poderia mostrar uma notificação de "URL copiada"
     }
-  };
-
-  const formatTimeAgo = (dateTime?: string) => {
-    if (!dateTime) return 'Agora';
-    const now = new Date();
-    const articleDate = new Date(dateTime);
-    const diffInMinutes = Math.floor((now.getTime() - articleDate.getTime()) / (1000 * 60));
-
-    if (diffInMinutes < 60) return `${diffInMinutes}min`;
-    if (diffInMinutes < 1440) return `${Math.floor(diffInMinutes / 60)}h`;
-    return `${Math.floor(diffInMinutes / 1440)}d`;
   };
 
   const getVariantClasses = () => {
@@ -102,7 +92,7 @@ export default function NewsCard({ article, index, variant = 'default' }: NewsCa
           </div>
           <div className="flex items-center text-xs text-gray-500 bg-gray-50 px-2 py-1 rounded-full">
             <Clock className="w-3 h-3 mr-1" />
-            <span>{formatTimeAgo(article.dateTime)}</span>
+            <span>{timeAgo}</span>
           </div>
         </div>
 

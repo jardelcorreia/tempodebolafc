@@ -4,6 +4,17 @@ import Header from "@/components/Header";
 import NewsCard from "@/components/NewsCard";
 import Footer from "@/components/Footer";
 
+const formatTimeAgo = (dateTime?: string) => {
+  if (!dateTime) return 'Agora';
+  const now = new Date();
+  const articleDate = new Date(dateTime);
+  const diffInMinutes = Math.floor((now.getTime() - articleDate.getTime()) / (1000 * 60));
+
+  if (diffInMinutes < 60) return `${diffInMinutes}min`;
+  if (diffInMinutes < 1440) return `${Math.floor(diffInMinutes / 60)}h`;
+  return `${Math.floor(diffInMinutes / 1440)}d`;
+};
+
 export default async function Home() {
   const news = await getNews();
 
@@ -62,6 +73,7 @@ export default async function Home() {
                 article={article}
                 index={index}
                 variant={index === 0 ? 'featured' : 'default'}
+                timeAgo={formatTimeAgo(article.dateTime)}
               />
             ))}
           </div>
