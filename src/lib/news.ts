@@ -5,41 +5,48 @@ export async function getNews() {
       throw new Error("NEWS_API_KEY is not defined");
     }
 
-    // Usa o conceptUri para "futebol" (association football)
-    const query = JSON.stringify({
-      $query: {
-        $and: [
-          { conceptUri: "http://en.wikipedia.org/wiki/Association_football" },
-          { categoryUri: "dmoz/Sports/Soccer"},
-          { lang: "por" },
-          { sourceLocationUri: "http://en.wikipedia.org/wiki/Brazil" }
-        ]
-      }
+    // Parâmetros diretos na URL - sem JSON query
+    const params = new URLSearchParams({
+      resultType: 'articles',
+      conceptUri: 'http://en.wikipedia.org/wiki/Association_football',
+      lang: 'por',
+      sourceLocationUri: 'http://en.wikipedia.org/wiki/Brazil',
+      articlesSortBy: 'date',
+      articlesCount: '50', // Número de artigos
+      apiKey: apiKey
     });
 
-    const encodedQuery = encodeURIComponent(query);
+    const url = `https://newsapi.ai/api/v1/article/getArticles?${params.toString()}`;
 
-    const url = `https://newsapi.ai/api/v1/article/getArticles?query=${encodedQuery}&resultType=articles&articlesSortBy=date&apiKey=${apiKey}`;
+    console.log('URL sendo chamada:', url);
 
     const response = await fetch(url);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch news: ${response.statusText}`);
+      throw new Error(`Failed to fetch news: ${response.status} ${response.statusText}`);
     }
 
     const data = await response.json();
+    
+    console.log('Resposta da API:', data);
 
-    // Prepend the base URL to the image URLs if they are not already absolute
-    const articles = data.articles?.results.map((article: any) => {
+    // Verifica se há artigos na resposta
+    if (!data.articles || !data.articles.results) {
+      console.log('Nenhum artigo encontrado na resposta');
+      return [];
+    }
+
+    // Processa as imagens dos artigos
+    const articles = data.articles.results.map((article: any) => {
       if (article.image && !article.image.startsWith('http')) {
-        article.image = `https://newsapi.ai/${article.image}`;
+        article.image = `https://newsapi.ai${article.image}`;
       }
-      console.log("Image URL:", article.image);
       return article;
     });
 
-    // Retorna apenas os artigos relevantes
-    return articles || [];
+    console.log(`${articles.length} artigos encontrados`);
+    return articles;
+
   } catch (error) {
     console.error("Error fetching news:", error);
     return [];
