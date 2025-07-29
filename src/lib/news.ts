@@ -11,7 +11,7 @@ export async function getNews() {
         $and: [
           { conceptUri: "http://en.wikipedia.org/wiki/Association_football" },
           { lang: "por" },
-          { sourceLocationUri: "country/br" }
+          { sourceLocationUri: "http://en.wikipedia.org/wiki/Brazil" }
         ]
       }
     });
