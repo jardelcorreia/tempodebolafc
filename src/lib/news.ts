@@ -14,6 +14,7 @@ export async function getNews() {
     }
 
     const data = await response.json();
+    console.log("API Response:", data);
     return data.articles.results;
   } catch (error) {
     console.error(error);
