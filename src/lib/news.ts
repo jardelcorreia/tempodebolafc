@@ -10,6 +10,7 @@ export async function getNews() {
       $query: {
         $and: [
           { conceptUri: "http://en.wikipedia.org/wiki/Association_football" },
+          { categoryUri: "dmoz/Sports/Soccer"},
           { lang: "por" },
           { sourceLocationUri: "http://en.wikipedia.org/wiki/Brazil" }
         ]
