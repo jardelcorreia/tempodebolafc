@@ -21,7 +21,6 @@ export default function Header() {
     { label: 'Internacional', href: '#' },
     { label: 'Mercado', href: '#' },
     { label: 'Ao Vivo', href: '#' },
-    { label: 'Vídeos', href: '#' },
   ];
 
   return (

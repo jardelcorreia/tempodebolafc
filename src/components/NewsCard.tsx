@@ -139,24 +139,6 @@ export default function NewsCard({ article, index, variant = 'default' }: NewsCa
           {article.body}
         </p>
 
-        {/* Stats Bar */}
-        <div className="flex items-center justify-between text-xs text-gray-500 mb-4 py-2 border-t border-gray-100">
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-1">
-              <Eye className="w-3 h-3" />
-              <span>{Math.floor(Math.random() * 1000) + 100}</span>
-            </div>
-            <div className="flex items-center space-x-1">
-              <MessageCircle className="w-3 h-3" />
-              <span>{Math.floor(Math.random() * 50) + 5}</span>
-            </div>
-            <div className="flex items-center space-x-1">
-              <Heart className={`w-3 h-3 ${isLiked ? 'text-red-500 fill-current' : ''}`} />
-              <span>{Math.floor(Math.random() * 200) + 20}</span>
-            </div>
-          </div>
-          <span className="text-xs text-gray-400">#{Math.floor(Math.random() * 1000)}</span>
-        </div>
 
         {/* Actions */}
         <div className="flex items-center justify-between">

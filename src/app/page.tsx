@@ -34,58 +34,9 @@ export default async function Home() {
             Acompanhe as principais notícias, transferências, resultados e análises do mundo do futebol em tempo real
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-            <button className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-emerald-500 to-blue-500 text-white font-semibold rounded-2xl hover:from-emerald-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl">
-              <Play className="w-5 h-5 mr-2" />
-              Assistir Highlights
-            </button>
-            <button className="inline-flex items-center px-8 py-4 bg-white/80 backdrop-blur-sm text-gray-700 font-semibold rounded-2xl hover:bg-white transition-all duration-300 border border-gray-200/50 shadow-lg hover:shadow-xl">
-              <Trophy className="w-5 h-5 mr-2" />
-              Ver Classificação
-            </button>
-          </div>
         </div>
       </section>
 
-      {/* Stats Bar */}
-      <section className="bg-white/70 backdrop-blur-sm border-y border-gray-200/50 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">Tempo de Bola em números</h3>
-            <p className="text-gray-600">A confiança de milhões de torcedores</p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center group cursor-pointer">
-              <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all duration-300 shadow-lg">
-                <Globe className="w-8 h-8 text-white" />
-              </div>
-              <p className="text-3xl font-bold text-gray-900 mb-1">50+</p>
-              <p className="text-sm text-gray-600">Países cobertos</p>
-            </div>
-            <div className="text-center group cursor-pointer">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all duration-300 shadow-lg">
-                <Users className="w-8 h-8 text-white" />
-              </div>
-              <p className="text-3xl font-bold text-gray-900 mb-1">2M+</p>
-              <p className="text-sm text-gray-600">Leitores mensais</p>
-            </div>
-            <div className="text-center group cursor-pointer">
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all duration-300 shadow-lg">
-                <Zap className="w-8 h-8 text-white" />
-              </div>
-              <p className="text-3xl font-bold text-gray-900 mb-1">24/7</p>
-              <p className="text-sm text-gray-600">Tempo real</p>
-            </div>
-            <div className="text-center group cursor-pointer">
-              <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all duration-300 shadow-lg">
-                <TrendingUp className="w-8 h-8 text-white" />
-              </div>
-              <p className="text-3xl font-bold text-gray-900 mb-1">500+</p>
-              <p className="text-sm text-gray-600">Notícias diárias</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* News Grid */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
