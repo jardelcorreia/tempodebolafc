@@ -26,13 +26,13 @@ export async function getNews() {
     }
 
     const data = await response.json();
-    console.log("API Response:", data);
 
     // Prepend the base URL to the image URLs if they are not already absolute
     const articles = data.articles?.results.map((article: any) => {
       if (article.image && !article.image.startsWith('http')) {
         article.image = `https://newsapi.ai/${article.image}`;
       }
+      console.log("Image URL:", article.image);
       return article;
     });
 
