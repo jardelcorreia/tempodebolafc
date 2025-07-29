@@ -5,31 +5,39 @@ export async function getNews() {
       throw new Error("NEWS_API_KEY is not defined");
     }
 
-    // Usa o conceptUri para "futebol" (association football)
-    const query = JSON.stringify({
+    // Objeto de consulta para mais clareza
+    const query = {
       $query: {
         $and: [
-          { conceptUri: "http://en.wikipedia.org/wiki/Association_football" },
-          { lang: "por" }
-        ]
-      }
-    });
+          // Use conceptUri para filtrar pelo tópico de futebol ⚽
+          { conceptUri: "dmoz/Sports/Soccer" },
+          { lang: "por" },
+        ],
+      },
+    };
 
-    const encodedQuery = encodeURIComponent(query);
+    // Codifica a consulta para ser usada na URL
+    const encodedQuery = encodeURIComponent(JSON.stringify(query));
 
-    const url = `https://newsapi.ai/api/v1/article/getArticles?query=${encodedQuery}&resultType=articles&articlesSortBy=date&apiKey=${apiKey}`;
-
-    const response = await fetch(url);
+    const response = await fetch(
+      `https://newsapi.ai/api/v1/article/getArticles?query=${encodedQuery}&resultType=articles&articlesSortBy=date&apiKey=${apiKey}`
+    );
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch news: ${response.statusText}`);
+      // Adiciona mais detalhes ao erro
+      const errorBody = await response.text();
+      throw new Error(`Failed to fetch news: ${response.status} ${errorBody}`);
     }
 
     const data = await response.json();
-    console.log("API Response:", data);
-
-    // Retorna apenas os artigos relevantes
-    return data.articles?.results || [];
+    // Verifica se a resposta contém os artigos esperados
+    if (data && data.articles && data.articles.results) {
+      return data.articles.results;
+    } else {
+      console.warn("API response format is unexpected:", data);
+      return [];
+    }
+    
   } catch (error) {
     console.error("Error fetching news:", error);
     return [];
