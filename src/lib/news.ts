@@ -81,8 +81,10 @@ export async function getNews() {
 
     const data = await response.json();
 
+import { NewsArticle } from "@/interfaces";
+
     // Filtro adicional no cliente (segurança extra contra ruído)
-    const filteredResults = (data.articles?.results || []).filter(article => {
+    const filteredResults = (data.articles?.results || []).filter((article: NewsArticle) => {
       const title = (article.title || "").toLowerCase();
       const body = (article.body || "").toLowerCase();
       return !blacklistTerms.some(term => title.includes(term) || body.includes(term));

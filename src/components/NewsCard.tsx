@@ -2,18 +2,8 @@
 
 import { useState } from 'react';
 import { Clock, ExternalLink, Share2, Bookmark, Eye, MessageCircle, Heart } from 'lucide-react';
-
-interface NewsArticle {
-  uri: string;
-  title: string;
-  body: string;
-  url: string;
-  source?: {
-    title: string;
-  };
-  dateTime?: string;
-  image?: string;
-}
+import { NewsArticle } from '@/interfaces';
+import Image from 'next/image';
 
 interface NewsCardProps {
   article: NewsArticle;
@@ -24,7 +14,6 @@ interface NewsCardProps {
 export default function NewsCard({ article, index, variant = 'default' }: NewsCardProps) {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   const handleShare = async () => {
     if (navigator.share) {
@@ -79,21 +68,13 @@ export default function NewsCard({ article, index, variant = 'default' }: NewsCa
         <div className="relative overflow-hidden bg-gradient-to-br from-emerald-50 to-blue-50">
           {article.image ? (
             <div className="relative h-48 md:h-56">
-              <img
+              <Image
                 src={article.image}
                 alt={article.title}
-                className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-105 ${
-                  isImageLoaded ? 'opacity-100' : 'opacity-0'
-                }`}
-                onLoad={() => setIsImageLoaded(true)}
+                layout="fill"
+                objectFit="cover"
+                className="transition-all duration-700 group-hover:scale-105"
               />
-              {!isImageLoaded && (
-                <div className="absolute inset-0 bg-gradient-to-br from-emerald-100 to-blue-100 animate-pulse flex items-center justify-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-blue-500 rounded-full flex items-center justify-center">
-                    <span className="text-2xl">⚽</span>
-                  </div>
-                </div>
-              )}
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
           ) : (
@@ -138,7 +119,6 @@ export default function NewsCard({ article, index, variant = 'default' }: NewsCa
         }`}>
           {article.body}
         </p>
-
 
         {/* Actions */}
         <div className="flex items-center justify-between">
