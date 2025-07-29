@@ -68,7 +68,7 @@ export default function NewsCard({ article, index, variant = 'default' }: NewsCa
         <div className="relative overflow-hidden bg-gradient-to-br from-emerald-50 to-blue-50">
           {article.image ? (
             <div className="relative h-48 md:h-56">
-              <img
+              <Image
                 src={article.image}
                 alt={article.title}
                 layout="fill"
