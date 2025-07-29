@@ -10,7 +10,7 @@ export async function getNews() {
       $query: {
         $and: [
           { conceptUri: "http://en.wikipedia.org/wiki/Association_football" },
-          { lang: "por" }
+          { lang: "por_br" }
         ]
       }
     });
@@ -32,7 +32,6 @@ export async function getNews() {
       if (article.image && !article.image.startsWith('http')) {
         article.image = `https://newsapi.ai/${article.image}`;
       }
-      console.log("Image URL:", article.image);
       return article;
     });
 
