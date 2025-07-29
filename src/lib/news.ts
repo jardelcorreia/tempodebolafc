@@ -5,38 +5,43 @@ export async function getNews() {
       throw new Error("NEWS_API_KEY is not defined");
     }
 
-    // Usa o conceptUri para "futebol" (association football)
-    const query = JSON.stringify({
+    // Objeto de consulta com todos os filtros
+    const query = {
       $query: {
         $and: [
-          { conceptUri: "http://en.wikipedia.org/wiki/Association_football" },
-          { lang: "por_br" }
-        ]
-      }
-    });
+          // 1. O tópico deve ser futebol
+          { conceptUri: "dmoz/Sports/Soccer" },
+          // 2. O idioma do artigo deve ser português
+          { lang: "por" },
+          // 3. A fonte da notícia deve ser do Brasil
+          { sourceLocationUri: "country/br" },
+        ],
+      },
+    };
 
-    const encodedQuery = encodeURIComponent(query);
+    // Codifica a consulta para ser usada na URL
+    const encodedQuery = encodeURIComponent(JSON.stringify(query));
 
     const url = `https://newsapi.ai/api/v1/article/getArticles?query=${encodedQuery}&resultType=articles&articlesSortBy=date&apiKey=${apiKey}`;
+
+    console.log("Requesting URL:", url); // Ótimo para depuração
 
     const response = await fetch(url);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch news: ${response.statusText}`);
+      const errorBody = await response.text();
+      throw new Error(`Failed to fetch news: ${response.status} ${errorBody}`);
     }
 
     const data = await response.json();
 
-    // Prepend the base URL to the image URLs if they are not already absolute
-    const articles = data.articles?.results.map((article: any) => {
-      if (article.image && !article.image.startsWith('http')) {
-        article.image = `https://newsapi.ai/${article.image}`;
-      }
-      return article;
-    });
+    if (data && data.articles && data.articles.results) {
+      return data.articles.results;
+    } else {
+      console.warn("API response format is unexpected or returned no results:", data);
+      return [];
+    }
 
-    // Retorna apenas os artigos relevantes
-    return articles || [];
   } catch (error) {
     console.error("Error fetching news:", error);
     return [];
