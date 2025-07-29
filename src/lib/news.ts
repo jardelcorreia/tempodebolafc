@@ -10,7 +10,8 @@ export async function getNews() {
       $query: {
         $and: [
           { conceptUri: "http://en.wikipedia.org/wiki/Association_football" },
-          { lang: "por" }
+          { lang: "por" },
+          { sourceLocationUri: "country/br" }
         ]
       }
     });
