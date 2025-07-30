@@ -19,7 +19,7 @@ export default function Header() {
   }, []);
 
   const navigationItems = [
-    { label: 'Brasil', href: '/brasil' },
+    { label: 'Brasil', href: '/' },
     { label: 'Internacional', href: '/internacional' },
     { label: 'Mercado', href: '/mercado' },
   ];
