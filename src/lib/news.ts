@@ -19,6 +19,7 @@ export async function getNews(category: 'brasil' | 'internacional' | 'mercado' |
         articlesSortBy: 'date',
         articlesCount: '100',
         apiKey: apiKey,
+        categoryUri: 'news/sports',
         dateStart: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 30 dias
         dateEnd: new Date().toISOString().split('T')[0]
       });
