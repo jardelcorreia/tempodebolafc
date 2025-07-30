@@ -5,9 +5,6 @@ export const revalidate = 60;
 import NewsCard from "@/components/NewsCard";
 import Footer from "@/components/Footer";
 
-// Força geração dinâmica (sem cache estático)
-export const dynamic = 'force-dynamic';
-
 export default async function BrasilPage() {
   const news = await getNews('brasil');
 
