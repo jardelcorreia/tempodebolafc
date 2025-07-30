@@ -37,7 +37,7 @@ export async function getNews(category: 'brasil' | 'internacional' | 'mercado' =
           keyword: 'futebol brasileiro',
           keywordLoc: 'title',
           lang: 'por',
-          sourceLocationUri: 'http://en.wikipedia.org/wiki/Brazil',
+          //8sourceLocationUri: 'http://en.wikipedia.org/wiki/Brazil',
           articlesSortBy: 'rel',
           articlesCount: '50',
           apiKey: apiKey
