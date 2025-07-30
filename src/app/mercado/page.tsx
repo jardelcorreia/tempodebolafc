@@ -1,6 +1,7 @@
 import { getNews } from "@/lib/news";
 import { Calendar } from "lucide-react";
 import Header from "@/components/Header";
+export const revalidate = 60;
 import NewsCard from "@/components/NewsCard";
 import Footer from "@/components/Footer";
 
