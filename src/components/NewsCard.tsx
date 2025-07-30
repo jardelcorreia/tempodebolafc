@@ -1,18 +1,38 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Clock, ExternalLink, Share2, Bookmark, Eye, MessageCircle, Heart } from 'lucide-react';
 import { NewsArticle } from '@/interfaces';
+
 interface NewsCardProps {
   article: NewsArticle;
   index: number;
   variant?: 'default' | 'featured' | 'compact';
-  timeAgo: string;
 }
 
-export default function NewsCard({ article, index, variant = 'default', timeAgo }: NewsCardProps) {
+const formatTimeAgo = (dateTime?: string) => {
+  if (!dateTime) return 'Agora';
+  const now = new Date();
+  const articleDate = new Date(dateTime);
+  const diffInMinutes = Math.floor((now.getTime() - articleDate.getTime()) / (1000 * 60));
+
+  if (diffInMinutes < 60) return `${diffInMinutes}min`;
+  if (diffInMinutes < 1440) return `${Math.floor(diffInMinutes / 60)}h`;
+  return `${Math.floor(diffInMinutes / 1440)}d`;
+};
+
+export default function NewsCard({ article, index, variant = 'default' }: NewsCardProps) {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
+  const [timeAgo, setTimeAgo] = useState('');
+
+  useEffect(() => {
+    setTimeAgo(formatTimeAgo(article.dateTime));
+    const interval = setInterval(() => {
+      setTimeAgo(formatTimeAgo(article.dateTime));
+    }, 60000); // Update every minute
+    return () => clearInterval(interval);
+  }, [article.dateTime]);
 
   const handleShare = async () => {
     if (navigator.share) {
