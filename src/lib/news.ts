@@ -28,7 +28,7 @@ export async function getNews(category: 'brasil' | 'internacional' | 'mercado' =
       case 'mercado':
         params = new URLSearchParams({
           resultType: 'articles',
-          keyword: 'mercado da bola OR transferência OR contratação',
+          keyword: 'mercado da bola',
           keywordLoc: 'title,body',
           lang: 'por',
           articlesSortBy: 'date',
@@ -45,7 +45,6 @@ export async function getNews(category: 'brasil' | 'internacional' | 'mercado' =
           keyword: 'futebol brasileiro OR brasileirão OR copa do brasil',
           keywordLoc: 'title,body',
           lang: 'por',
-          sourceLocationUri: 'http://en.wikipedia.org/wiki/Brazil',
           articlesSortBy: 'date',
           articlesCount: '100',
           apiKey: apiKey,
