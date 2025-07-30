@@ -14,7 +14,7 @@ export async function getNews(category: 'brasil' | 'internacional' | 'mercado' =
           keyword: 'futebol internacional',
           keywordLoc: 'title',
           lang: 'por',
-          articlesSortBy: 'date',
+          articlesSortBy: 'rel',
           articlesCount: '50',
           apiKey: apiKey
         });
@@ -25,7 +25,7 @@ export async function getNews(category: 'brasil' | 'internacional' | 'mercado' =
           keyword: 'mercado da bola',
           keywordLoc: 'title',
           lang: 'por',
-          articlesSortBy: 'date',
+          articlesSortBy: 'rel',
           articlesCount: '50',
           apiKey: apiKey
         });
@@ -38,14 +38,14 @@ export async function getNews(category: 'brasil' | 'internacional' | 'mercado' =
           keywordLoc: 'title',
           lang: 'por',
           sourceLocationUri: 'http://en.wikipedia.org/wiki/Brazil',
-          articlesSortBy: 'date',
+          articlesSortBy: 'rel',
           articlesCount: '50',
           apiKey: apiKey
         });
         break;
     }
 
-    const url = `https://newsapi.ai/api/v1/article/getArticles?${params.toString()}&_=${new Date().getTime()}`;
+    const url = `https://newsapi.ai/api/v1/article/getArticles?${params.toString()}`;
 
     console.log('URL sendo chamada:', url);
 
