@@ -45,7 +45,7 @@ export async function getNews(category: 'brasil' | 'internacional' | 'mercado' =
         break;
     }
 
-    const url = `https://newsapi.ai/api/v1/article/getArticles?${params.toString()}`;
+    const url = `https://newsapi.ai/api/v1/article/getArticles?${params.toString()}&_=${new Date().getTime()}`;
 
     console.log('URL sendo chamada:', url);
 

@@ -3,16 +3,16 @@
 import { useState } from 'react';
 import { Clock, ExternalLink, Share2, Bookmark, Eye, MessageCircle, Heart } from 'lucide-react';
 import { NewsArticle } from '@/interfaces';
-import TimeAgo from './TimeAgo';
-
 interface NewsCardProps {
   article: NewsArticle;
   index: number;
   variant?: 'default' | 'featured' | 'compact';
+  timeAgo: string;
 }
 
-export default function NewsCard({ article, index, variant = 'default' }: NewsCardProps) {
-  const [imageError, setImageError] = useState(false);
+export default function NewsCard({ article, index, variant = 'default', timeAgo }: NewsCardProps) {
+  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
 
   const handleShare = async () => {
     if (navigator.share) {
@@ -54,13 +54,12 @@ export default function NewsCard({ article, index, variant = 'default' }: NewsCa
       {/* Image Section - Only for featured variant or if image exists */}
       {(variant === 'featured' || article.image) && (
         <div className="relative overflow-hidden bg-gradient-to-br from-emerald-50 to-blue-50">
-          {article.image && !imageError ? (
+          {article.image ? (
             <div className="relative h-48 md:h-56">
               <img
                 src={article.image}
                 alt={article.title}
                 className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
-                onError={() => setImageError(true)}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
@@ -89,7 +88,7 @@ export default function NewsCard({ article, index, variant = 'default' }: NewsCa
           </div>
           <div className="flex items-center text-xs text-gray-500 bg-gray-50 px-2 py-1 rounded-full">
             <Clock className="w-3 h-3 mr-1" />
-            <TimeAgo dateTime={article.dateTime} />
+            <span>{timeAgo}</span>
           </div>
         </div>
 
@@ -130,16 +129,26 @@ export default function NewsCard({ article, index, variant = 'default' }: NewsCa
               <Share2 className="w-4 h-4" />
             </button>
             <button
-              className="p-2 rounded-full text-gray-400 hover:text-blue-500 hover:bg-blue-50 transition-all duration-200 transform hover:scale-110"
+              onClick={() => setIsBookmarked(!isBookmarked)}
+              className={`p-2 rounded-full transition-all duration-200 transform hover:scale-110 ${
+                isBookmarked
+                  ? 'text-blue-500 bg-blue-50'
+                  : 'text-gray-400 hover:text-blue-500 hover:bg-blue-50'
+              }`}
               title="Salvar"
             >
-              <Bookmark className="w-4 h-4" />
+              <Bookmark className={`w-4 h-4 ${isBookmarked ? 'fill-current' : ''}`} />
             </button>
             <button
-              className="p-2 rounded-full text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all duration-200 transform hover:scale-110"
+              onClick={() => setIsLiked(!isLiked)}
+              className={`p-2 rounded-full transition-all duration-200 transform hover:scale-110 ${
+                isLiked
+                  ? 'text-red-500 bg-red-50'
+                  : 'text-gray-400 hover:text-red-500 hover:bg-red-50'
+              }`}
               title="Curtir"
             >
-              <Heart className="w-4 h-4" />
+              <Heart className={`w-4 h-4 ${isLiked ? 'fill-current' : ''}`} />
             </button>
           </div>
         </div>
