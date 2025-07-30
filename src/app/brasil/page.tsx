@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 export const revalidate = 60;
 import NewsCard from "@/components/NewsCard";
 import Footer from "@/components/Footer";
+import AdBanner from "@/components/AdBanner";
 
 export default async function BrasilPage() {
   const news = await getNews('brasil');
@@ -54,6 +55,8 @@ export default async function BrasilPage() {
             </div>
           </div>
         </div>
+
+        <AdBanner />
 
         {news.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
