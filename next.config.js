@@ -1,7 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['newsapi.ai'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'newsapi.ai',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
 };
 
