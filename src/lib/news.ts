@@ -49,7 +49,7 @@ export async function getNews(category: 'brasil' | 'internacional' | 'mercado' =
 
     console.log('URL sendo chamada:', url);
 
-    const response = await fetch(url, { cache: 'no-store' });
+    const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch news: ${response.status} ${response.statusText}`);
