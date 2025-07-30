@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { Clock, ExternalLink, Share2, Bookmark, Eye, MessageCircle, Heart } from 'lucide-react';
 import { NewsArticle } from '@/interfaces';
 import TimeAgo from './TimeAgo';
-import ArticleModal from './ArticleModal';
 
 interface NewsCardProps {
   article: NewsArticle;
@@ -15,7 +14,6 @@ interface NewsCardProps {
 export default function NewsCard({ article, index, variant = 'default' }: NewsCardProps) {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleShare = async () => {
     if (navigator.share) {
@@ -111,15 +109,15 @@ export default function NewsCard({ article, index, variant = 'default' }: NewsCa
 
         {/* Actions */}
         <div className="flex items-center justify-between">
-          <button
-            onClick={() => setIsModalOpen(true)}
+          <a
+            href={`/article?url=${encodeURIComponent(article.url)}`}
             className={`inline-flex items-center font-semibold bg-gradient-to-r from-emerald-500 to-blue-500 text-white hover:from-emerald-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl rounded-xl ${
               variant === 'featured' ? 'px-6 py-3 text-base' : 'px-4 py-2 text-sm'
             }`}
           >
             Leia mais
             <ExternalLink className={`ml-2 ${variant === 'featured' ? 'w-5 h-5' : 'w-4 h-4'}`} />
-          </button>
+          </a>
 
           <div className="flex items-center space-x-2">
             <button
@@ -157,8 +155,6 @@ export default function NewsCard({ article, index, variant = 'default' }: NewsCa
 
       {/* Hover overlay effect */}
       <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl"></div>
-
-      {isModalOpen && <ArticleModal article={article} onClose={() => setIsModalOpen(false)} />}
     </article>
   );
 }
