@@ -88,7 +88,7 @@ export default function Header() {
                     router.push(`/search?q=${searchQuery}`);
                   }
                 }}
-                className={`transition-all duration-300 ${
+                className={`transition-all duration-300 text-black ${
                   isSearchOpen ? 'w-48 px-4 py-2 border rounded-lg' : 'w-0'
                 }`}
               />
