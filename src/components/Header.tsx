@@ -38,7 +38,7 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <div className="flex items-center space-x-3">
+          <a href="/" className="flex items-center space-x-3">
             <div className="relative">
               <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-emerald-500 to-blue-600 rounded-full flex items-center justify-center transform hover:scale-110 transition-transform duration-200">
                 <span className="text-white font-bold text-lg lg:text-xl">⚽</span>
@@ -53,7 +53,7 @@ export default function Header() {
               </h1>
               <p className="text-xs text-gray-500 hidden lg:block">Notícias em tempo real</p>
             </div>
-          </div>
+          </a>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
