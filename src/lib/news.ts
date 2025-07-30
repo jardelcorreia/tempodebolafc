@@ -1,4 +1,4 @@
-export async function getNews(category: 'brasil' | 'internacional' | 'mercado' = 'brasil') {
+export async function getNews(category: 'brasil' | 'internacional' | 'mercado' | string = 'brasil', query?: string) {
   try {
     const apiKey = process.env.NEWS_API_KEY;
     if (!apiKey) {
@@ -10,48 +10,62 @@ export async function getNews(category: 'brasil' | 'internacional' | 'mercado' =
     const cacheKey = Math.random().toString(36).substring(7);
 
     let params;
-    switch (category) {
-      case 'internacional':
-        params = new URLSearchParams({
-          resultType: 'articles',
-          keyword: 'futebol internacional',
-          keywordLoc: 'title,body', // Busca também no corpo
-          lang: 'por',
-          articlesSortBy: 'date',
-          articlesCount: '100', // Aumenta para ter mais opções
-          apiKey: apiKey,
-          // Adiciona filtro de data mais recente (últimos 7 dias)
-          dateStart: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-          dateEnd: new Date().toISOString().split('T')[0]
-        });
-        break;
-      case 'mercado':
-        params = new URLSearchParams({
-          resultType: 'articles',
-          keyword: 'mercado da bola',
-          keywordLoc: 'title,body',
-          lang: 'por',
-          articlesSortBy: 'date',
-          articlesCount: '100',
-          apiKey: apiKey,
-          dateStart: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-          dateEnd: new Date().toISOString().split('T')[0]
-        });
-        break;
-      case 'brasil':
-      default:
-        params = new URLSearchParams({
-          resultType: 'articles',
-          keyword: 'futebol brasileiro',
-          keywordLoc: 'title,body',
-          lang: 'por',
-          articlesSortBy: 'date',
-          articlesCount: '100',
-          apiKey: apiKey,
-          dateStart: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-          dateEnd: new Date().toISOString().split('T')[0]
-        });
-        break;
+    if (query) {
+      params = new URLSearchParams({
+        resultType: 'articles',
+        keyword: query,
+        keywordLoc: 'title,body',
+        lang: 'por',
+        articlesSortBy: 'date',
+        articlesCount: '100',
+        apiKey: apiKey,
+        dateStart: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 30 dias
+        dateEnd: new Date().toISOString().split('T')[0]
+      });
+    } else {
+      switch (category) {
+        case 'internacional':
+          params = new URLSearchParams({
+            resultType: 'articles',
+            keyword: 'futebol internacional',
+            keywordLoc: 'title,body', // Busca também no corpo
+            lang: 'por',
+            articlesSortBy: 'date',
+            articlesCount: '100', // Aumenta para ter mais opções
+            apiKey: apiKey,
+            // Adiciona filtro de data mais recente (últimos 7 dias)
+            dateStart: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+            dateEnd: new Date().toISOString().split('T')[0]
+          });
+          break;
+        case 'mercado':
+          params = new URLSearchParams({
+            resultType: 'articles',
+            keyword: 'mercado da bola',
+            keywordLoc: 'title,body',
+            lang: 'por',
+            articlesSortBy: 'date',
+            articlesCount: '100',
+            apiKey: apiKey,
+            dateStart: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+            dateEnd: new Date().toISOString().split('T')[0]
+          });
+          break;
+        case 'brasil':
+        default:
+          params = new URLSearchParams({
+            resultType: 'articles',
+            keyword: 'futebol brasileiro',
+            keywordLoc: 'title,body',
+            lang: 'por',
+            articlesSortBy: 'date',
+            articlesCount: '100',
+            apiKey: apiKey,
+            dateStart: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+            dateEnd: new Date().toISOString().split('T')[0]
+          });
+          break;
+      }
     }
 
     const url = `https://newsapi.ai/api/v1/article/getArticles?${params.toString()}&_=${timestamp}&cache=${cacheKey}`;

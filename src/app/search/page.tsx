@@ -10,8 +10,8 @@ export default async function SearchPage({
 }: {
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
-  const query = searchParams?.q;
-  const news = await getNews(query as any);
+  const query = searchParams?.q as string;
+  const news = await getNews('search', query);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
