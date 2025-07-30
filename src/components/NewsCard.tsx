@@ -3,14 +3,14 @@
 import { useState } from 'react';
 import { Clock, ExternalLink, Share2, Bookmark, Eye, MessageCircle, Heart } from 'lucide-react';
 import { NewsArticle } from '@/interfaces';
+import TimeAgo from './TimeAgo';
 interface NewsCardProps {
   article: NewsArticle;
   index: number;
   variant?: 'default' | 'featured' | 'compact';
-  timeAgo: string;
 }
 
-export default function NewsCard({ article, index, variant = 'default', timeAgo }: NewsCardProps) {
+export default function NewsCard({ article, index, variant = 'default' }: NewsCardProps) {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
 
@@ -88,7 +88,7 @@ export default function NewsCard({ article, index, variant = 'default', timeAgo 
           </div>
           <div className="flex items-center text-xs text-gray-500 bg-gray-50 px-2 py-1 rounded-full">
             <Clock className="w-3 h-3 mr-1" />
-            <span>{timeAgo}</span>
+            <span><TimeAgo dateTime={article.dateTime} /></span>
           </div>
         </div>
 
