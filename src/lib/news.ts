@@ -42,7 +42,7 @@ export async function getNews(category: 'brasil' | 'internacional' | 'mercado' =
       default:
         params = new URLSearchParams({
           resultType: 'articles',
-          keyword: 'futebol brasileiro OR brasileirão OR copa do brasil',
+          keyword: 'futebol brasileiro',
           keywordLoc: 'title,body',
           lang: 'por',
           articlesSortBy: 'date',
