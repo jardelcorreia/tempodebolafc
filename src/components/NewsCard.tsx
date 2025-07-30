@@ -110,7 +110,9 @@ export default function NewsCard({ article, index, variant = 'default' }: NewsCa
         {/* Actions */}
         <div className="flex items-center justify-between">
           <a
-            href={`/article?url=${encodeURIComponent(article.url)}`}
+            href={article.url}
+            target="_blank"
+            rel="noopener noreferrer"
             className={`inline-flex items-center font-semibold bg-gradient-to-r from-emerald-500 to-blue-500 text-white hover:from-emerald-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl rounded-xl ${
               variant === 'featured' ? 'px-6 py-3 text-base' : 'px-4 py-2 text-sm'
             }`}
