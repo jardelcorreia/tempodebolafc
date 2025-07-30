@@ -42,7 +42,7 @@ export async function getNews(category: 'brasil' | 'internacional' | 'mercado' =
       default:
         params = new URLSearchParams({
           resultType: 'articles',
-          keyword: brasileirão OR "série a" OR "copa do brasil" OR "futebol brasileiro" OR flamengo OR palmeiras OR corinthians',
+          keyword: 'brasileirão OR "série a" OR "copa do brasil" OR "futebol brasileiro" OR flamengo OR palmeiras OR corinthians',
           keywordLoc: 'title,body',
           lang: 'por',
           sourceLocationUri: 'http://en.wikipedia.org/wiki/Brazil',
