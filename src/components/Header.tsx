@@ -135,9 +135,23 @@ export default function Header() {
               </a>
             ))}
             <div className="flex items-center justify-around pt-4 border-t border-gray-200/50">
-              <button className="p-3 text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-all duration-200">
-                <Search className="w-5 h-5" />
-              </button>
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Buscar..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      router.push(`/search?q=${searchQuery}`);
+                      setIsMenuOpen(false);
+                    }
+                  }}
+                  className="w-full px-4 py-2 border rounded-lg text-black"
+                />
+              </div>
+            </div>
+            <div className="flex items-center justify-around pt-4">
               <button className="relative p-3 text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-all duration-200">
                 <Bell className="w-5 h-5" />
                 <div className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></div>
