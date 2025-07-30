@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import { Clock, ExternalLink, Share2, Bookmark, Eye, MessageCircle, Heart } from 'lucide-react';
 import { NewsArticle } from '@/interfaces';
 import TimeAgo from './TimeAgo';
@@ -9,6 +12,8 @@ interface NewsCardProps {
 }
 
 export default function NewsCard({ article, index, variant = 'default' }: NewsCardProps) {
+  const [imageError, setImageError] = useState(false);
+
   const handleShare = async () => {
     if (navigator.share) {
       try {
@@ -49,12 +54,13 @@ export default function NewsCard({ article, index, variant = 'default' }: NewsCa
       {/* Image Section - Only for featured variant or if image exists */}
       {(variant === 'featured' || article.image) && (
         <div className="relative overflow-hidden bg-gradient-to-br from-emerald-50 to-blue-50">
-          {article.image ? (
+          {article.image && !imageError ? (
             <div className="relative h-48 md:h-56">
               <img
                 src={article.image}
                 alt={article.title}
                 className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
+                onError={() => setImageError(true)}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
