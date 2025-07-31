@@ -27,7 +27,7 @@ export default async function HomePage() {
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight">
             Bem-vindo ao
             <span className="block bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
-              Analfabeto
+              Tempo de Bola FC
             </span>
           </h2>
 
