@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { Menu, X, Search, Bell, User } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -40,9 +41,13 @@ export default function Header() {
           {/* Logo */}
           <a href="/" className="flex items-center space-x-3">
             <div className="relative">
-              <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-emerald-500 to-blue-600 rounded-full flex items-center justify-center transform hover:scale-110 transition-transform duration-200">
-                <span className="text-white font-bold text-lg lg:text-xl">⚽</span>
-              </div>
+              <Image
+                src="/logo.png"
+                alt="Tempo de Bola FC Logo"
+                width={48}
+                height={48}
+                className="rounded-full transform hover:scale-110 transition-transform duration-200"
+              />
               <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center">
                 <span className="text-white text-xs font-bold">•</span>
               </div>
