@@ -40,18 +40,13 @@ export default function Header() {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <a href="/" className="flex items-center space-x-3">
-            <div className="relative">
-              <Image
-                src="/logo.png"
-                alt="Tempo de Bola FC Logo"
-                width={48}
-                height={48}
-                className="rounded-full transform hover:scale-110 transition-transform duration-200"
-              />
-              <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center">
-                <span className="text-white text-xs font-bold">•</span>
-              </div>
-            </div>
+            <Image
+              src="/logo.png"
+              alt="Tempo de Bola FC Logo"
+              width={48}
+              height={48}
+              className="rounded-full transform hover:scale-110 transition-transform duration-200"
+            />
             <div>
               <h1 className="text-xl lg:text-2xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
                 Tempo de Bola FC
