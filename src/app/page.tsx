@@ -13,15 +13,12 @@ export default async function HomePage() {
   ]);
 
   const featuredArticle = brasilNews.length > 0 ? brasilNews[0] : null;
-  const commentary = "É interessante observar como o mercado de patrocínios no futebol brasileiro vem se transformando nos últimos anos. O destaque aqui é o domínio das casas de apostas esportivas entre os principais acordos, ocupando todo o top 10 da lista.
+  const commentary = `Esta é uma notícia de grande impacto para o futebol brasileiro.
+A transferência deste jogador pode mudar o equilíbrio de poder no campeonato.
 
-Isso reflete uma tendência que vem se consolidando no país, com as empresas de apostas investindo pesado para se associarem às grandes marcas do futebol nacional. O Flamengo, por exemplo, conseguiu um contrato recorde de R$ 268,5 milhões anuais com a Betano, superando até mesmo o seu anterior acerto com a Pixbet.
+Nossa análise aprofundada sugere que o time X, com esta nova contratação, tem grandes chances de conquistar o título. Fique de olho nos próximos jogos para ver o desenrolar desta história.
 
-Essa realidade demonstra a importância que o patrocínio master tem para os clubes atualmente. São valores milionários que se tornaram essenciais para as finanças dessas instituições, as quais parecem cada vez mais dependentes dessa receita.
-
-O ranking evidencia também o poderio comercial dos grandes times, com Flamengo, São Paulo, Corinthians e Palmeiras liderando os maiores acordos. Chama a atenção, inclusive, a possibilidade do Palmeiras receber R$ 70 milhões adicionais por metas de títulos conquistados - uma estratégia interessante para incentivar o desempenho esportivo.
-
-De todo modo, fica claro que o mercado de patrocínios no futebol brasileiro vive um momento de efervescência, com as casas de apostas ditando o ritmo dessa transformação. É um cenário que merece ser acompanhado de perto nos próximos anos.";
+[Este comentário é um exemplo, substitua pela sua própria análise.]`;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
