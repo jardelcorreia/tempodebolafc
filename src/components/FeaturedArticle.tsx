@@ -23,7 +23,7 @@ export default function FeaturedArticle({ article, commentary }: FeaturedArticle
         {/* Content */}
         <div>
           <div className="flex items-center space-x-4 mb-3 text-gray-400">
-            <span className="font-semibold text-emerald-400">{article.source.title}</span>
+            <span className="font-semibold text-emerald-400">{article.source?.title || "Tempo de Bola FC"}</span>
             <span>&bull;</span>
             <div className="flex items-center">
               <Calendar className="w-4 h-4 mr-1.5" />
