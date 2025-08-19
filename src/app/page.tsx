@@ -1,10 +1,9 @@
 import { getNews } from "@/lib/news";
-import { Calendar } from "lucide-react";
 import Header from "@/components/Header";
 export const revalidate = 60;
 import NewsCard from "@/components/NewsCard";
 import Footer from "@/components/Footer";
-import Link from 'next/link';
+import FeaturedArticle from "@/components/FeaturedArticle";
 
 export default async function HomePage() {
   const [brasilNews, internacionalNews, mercadoNews] = await Promise.all([
@@ -12,6 +11,9 @@ export default async function HomePage() {
     getNews('internacional'),
     getNews('mercado')
   ]);
+
+  const featuredArticle = brasilNews.length > 0 ? brasilNews[0] : null;
+  const commentary = "Esta é uma notícia de grande impacto para o futebol brasileiro. A transferência deste jogador pode mudar o equilíbrio de poder no campeonato. A nossa análise aprofundada sugere que o time X, com esta nova contratação, tem grandes chances de conquistar o título. Fique de olho nos próximos jogos para ver o desenrolar desta história. [Este comentário é um exemplo, substitua pela sua própria análise.]";
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
@@ -39,16 +41,21 @@ export default async function HomePage() {
 
       {/* News Grid */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        {/* Featured Article Section */}
+        {featuredArticle && (
+          <FeaturedArticle article={featuredArticle} commentary={commentary} />
+        )}
+
         {/* Brasil News */}
         <div className="mb-16">
             <h3 className="text-3xl font-bold text-gray-900 mb-3">Brasil</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {brasilNews.slice(0, 6).map((article: any, index: number) => (
+                {brasilNews.slice(1, 7).map((article: any, index: number) => (
                 <NewsCard
                     key={article.uri}
                     article={article}
                     index={index}
-                    variant={index === 0 ? 'featured' : 'default'}
+                    variant={'default'}
                 />
                 ))}
             </div>

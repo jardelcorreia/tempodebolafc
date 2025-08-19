@@ -30,20 +30,20 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-semibold mb-4">Seções</h4>
             <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-emerald-400 transition-colors duration-200">Brasileirão</a></li>
-              <li><a href="#" className="hover:text-emerald-400 transition-colors duration-200">Copa do Brasil</a></li>
-              <li><a href="#" className="hover:text-emerald-400 transition-colors duration-200">Internacional</a></li>
-              <li><a href="#" className="hover:text-emerald-400 transition-colors duration-200">Mercado da Bola</a></li>
+              <li><a href="/brasil" className="hover:text-emerald-400 transition-colors duration-200">Brasileirão</a></li>
+              <li><a href="/brasil" className="hover:text-emerald-400 transition-colors duration-200">Copa do Brasil</a></li>
+              <li><a href="/internacional" className="hover:text-emerald-400 transition-colors duration-200">Internacional</a></li>
+              <li><a href="/mercado" className="hover:text-emerald-400 transition-colors duration-200">Mercado da Bola</a></li>
             </ul>
           </div>
 
           <div>
             <h4 className="text-lg font-semibold mb-4">Sobre</h4>
             <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-emerald-400 transition-colors duration-200">Equipe</a></li>
-              <li><a href="#" className="hover:text-emerald-400 transition-colors duration-200">Contato</a></li>
-              <li><a href="#" className="hover:text-emerald-400 transition-colors duration-200">Política de Privacidade</a></li>
-              <li><a href="#" className="hover:text-emerald-400 transition-colors duration-200">Termos de Uso</a></li>
+              <li><a href="/sobre" className="hover:text-emerald-400 transition-colors duration-200">Equipe</a></li>
+              <li><a href="/contato" className="hover:text-emerald-400 transition-colors duration-200">Contato</a></li>
+              <li><a href="/politica-de-privacidade" className="hover:text-emerald-400 transition-colors duration-200">Política de Privacidade</a></li>
+              <li><a href="/termos-de-uso" className="hover:text-emerald-400 transition-colors duration-200">Termos de Uso</a></li>
             </ul>
           </div>
         </div>
